@@ -82,6 +82,23 @@ export default {
     modelValue(newValue) {
       jQuery(this.$refs.root).val(jQuery(this.$refs.root).masked(newValue));
     },
+
+    /**
+     * Listen if mask dynamically changed and update
+     * Also move the caret to the end
+     */
+    mask(newMask) {
+
+      // Clone configs
+      let newOptions = jQuery.extend(true, {}, this.options);
+      // Lastly init the mask
+      jQuery(this.$refs.root).mask(this.mask, newOptions);
+
+      // Moving caret to the end
+      this.$refs.root.selectionStart = this.$refs.root.selectionEnd = 10000;
+
+    },
+
   },
   beforeUnmount() {
     jQuery(this.$refs.root).unmask();
